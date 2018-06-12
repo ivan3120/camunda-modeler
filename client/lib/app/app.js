@@ -1523,11 +1523,14 @@ App.prototype.run = function() {
   // (2) restore workspace
   // (3) indicate ready
 
-  this.selectTab(this.tabs[0]);
-
   this.plugins.load(() => {
 
     this.restoreWorkspace((err) => {
+
+      if (!this.activeTab) {
+        this.selectTab(this.tabs[0]);
+      }
+
       if (err) {
         debug('workspace restore error', err);
       } else {
